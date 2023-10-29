@@ -15,15 +15,13 @@ export async function POST(req: Request) {
             return new NextResponse("Name is required", { status: 401 })
         }
 
-        console.log(name)
-
         const store = await prismadb.store.create({
             data: {
                 Name: name,
                 userId,
             }
         })
-        console.log(store)
+    
         return NextResponse.json(store)
 
 

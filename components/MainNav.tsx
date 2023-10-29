@@ -10,13 +10,35 @@ const MainNav = ({
 }: React.HTMLAttributes<HTMLElement>) => {
   const pathname = usePathname();
   const params = useParams();
+
   const routes = [
     {
       href: `/${params.storeId}/settings`,
       lable: "Settings",
-      active: pathname === `${params.storeId}/settings`,
+      active: pathname == `/${params.storeId}/settings`,
+    },
+    {
+      href: `/${params.storeId}/settings`,
+      lable: "OverView",
+      active: pathname == `/${params.storeId}/settings`,
+    },
+    {
+      href: `/${params.storeId}/billboards`,
+      lable: "Billboards",
+      active: pathname == `/${params.storeId}/billboards`,
+    },
+    {
+      href: `/${params.storeId}/categories`,
+      lable: "Categories",
+      active: new RegExp(`^/${params.storeId}/categories.*`).test(pathname),
+    },
+    {
+      href: `/${params.storeId}/sizes`,
+      lable: "Sizes",
+      active: new RegExp(`^/${params.storeId}/sizes.*`).test(pathname),
     },
   ];
+
   return (
     <>
       <nav
