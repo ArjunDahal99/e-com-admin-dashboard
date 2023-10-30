@@ -19,6 +19,9 @@ model Store {
   updatedAt  DateTime    @updatedAt
   categories Category[]  @relation("StoreToCategory")
   Size       Size[]
+  Color      Color[]
+  Product    Product[]
+  orders     Order[]
 }
 
 model Billboard {
@@ -41,14 +44,76 @@ model Category {
   billboardId String
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+  Product     Product[]
 }
 
 model Size {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   storeId   String
-  store     Store    @relation(fields: [storeId], references: [id])
+  store     Store     @relation(fields: [storeId], references: [id])
   name      String
   value     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Product   Product[]
+}
+
+model Color {
+  id        String    @id @default(uuid())
+  storeId   String
+  store     Store     @relation(fields: [storeId], references: [id])
+  name      String
+  value     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Product   Product[]
+}
+
+model Product {
+  id         String      @id @default(uuid())
+  store      Store       @relation(fields: [storeId], references: [id])
+  storeId    String
+  category   Category    @relation(fields: [categoryId], references: [id])
+  categoryId String
+  name       String
+  price      Decimal
+  isFeature  Boolean     @default(false)
+  isArchived Boolean     @default(false)
+  size       Size        @relation(fields: [sizeId], references: [id])
+  sizeId     String
+  color      Color       @relation(fields: [colorId], references: [id])
+  colorId    String
+  images     Image[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  orderItem  OrderItem[]
+}
+
+model Image {
+  id        String   @id @default(uuid())
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String
+  url       String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Order {
+  id         String      @id @default(uuid())
+  store      Store       @relation(fields: [storeId], references: [id])
+  storeId    String
+  orderItems OrderItem[]
+  isPaid     Boolean     @default(false)
+  phone      String      @default("")
+  address    String      @default("")
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(uuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
 }

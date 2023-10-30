@@ -15,17 +15,27 @@ const MainNav = ({
     {
       href: `/${params.storeId}/settings`,
       lable: "Settings",
-      active: pathname == `/${params.storeId}/settings`,
+      active: new RegExp(`^/${params.storeId}/settings.*`).test(pathname),
     },
     {
-      href: `/${params.storeId}/settings`,
-      lable: "OverView",
-      active: pathname == `/${params.storeId}/settings`,
+      href: `/${params.storeId}/overview`,
+      lable: "Overview",
+      active: new RegExp(`^/${params.storeId}/overview.*`).test(pathname),
+    },
+    {
+      href: `/${params.storeId}/products`,
+      lable: "Products",
+      active: new RegExp(`^/${params.storeId}/products.*`).test(pathname),
+    },
+    {
+      href: `/${params.storeId}/orders`,
+      lable: "Order",
+      active: new RegExp(`^/${params.storeId}orders.*`).test(pathname),
     },
     {
       href: `/${params.storeId}/billboards`,
       lable: "Billboards",
-      active: pathname == `/${params.storeId}/billboards`,
+      active: new RegExp(`^/${params.storeId}/billboards.*`).test(pathname),
     },
     {
       href: `/${params.storeId}/categories`,
@@ -36,6 +46,11 @@ const MainNav = ({
       href: `/${params.storeId}/sizes`,
       lable: "Sizes",
       active: new RegExp(`^/${params.storeId}/sizes.*`).test(pathname),
+    },
+    {
+      href: `/${params.storeId}/colors`,
+      lable: "Colors",
+      active: new RegExp(`^/${params.storeId}/colors.*`).test(pathname),
     },
   ];
 
