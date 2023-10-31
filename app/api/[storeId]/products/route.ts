@@ -99,12 +99,13 @@ export async function GET(req: Request, { params }: { params: { storeId: string 
 
 
         const { searchParams } = new URL(req.url)
+        console.log(searchParams)
 
         const categoryId = searchParams.get("categoryId") || undefined
         const colorId = searchParams.get("colorId") || undefined
         const sizeId = searchParams.get("sizeId") || undefined
         const isFeatured = searchParams.get("isFeatured") || undefined
-
+        console.log(isFeatured)
         if (!params.storeId) {
             return new NextResponse("StoreId  is is required", { status: 400 })
         }
@@ -131,10 +132,11 @@ export async function GET(req: Request, { params }: { params: { storeId: string 
 
         })
 
+
         return NextResponse.json(product)
 
     } catch (error) {
-        console.log(`[Billboard_POST]`, error)
+        console.log(`[Products_POST]`, error)
         return new NextResponse("Internal Error", { status: 500 })
     }
 }
