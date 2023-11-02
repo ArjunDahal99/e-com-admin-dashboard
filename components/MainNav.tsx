@@ -18,16 +18,6 @@ const MainNav = ({
       active: new RegExp(`^/${params.storeId}/billboards.*`).test(pathname),
     },
     {
-      href: `/${params.storeId}/overview`,
-      lable: "Overview",
-      active: new RegExp(`^/${params.storeId}/overview.*`).test(pathname),
-    },
-    {
-      href: `/${params.storeId}/orders`,
-      lable: "Order",
-      active: new RegExp(`^/${params.storeId}orders.*`).test(pathname),
-    },
-    {
       href: `/${params.storeId}/categories`,
       lable: "Categories",
       active: new RegExp(`^/${params.storeId}/categories.*`).test(pathname),
@@ -46,6 +36,16 @@ const MainNav = ({
       href: `/${params.storeId}/colors`,
       lable: "Colors",
       active: new RegExp(`^/${params.storeId}/colors.*`).test(pathname),
+    },
+    {
+      href: `/${params.storeId}/overview`,
+      lable: "Overview",
+      active: new RegExp(`^/${params.storeId}/overview.*`).test(pathname),
+    },
+    {
+      href: `/${params.storeId}/orders`,
+      lable: "Order",
+      active: new RegExp(`^/${params.storeId}orders.*`).test(pathname),
     },
     {
       href: `/${params.storeId}/settings`,
