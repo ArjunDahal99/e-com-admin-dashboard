@@ -111,6 +111,8 @@ export async function DELETE(
 ) {
     try {
         const { userId } = auth();
+        console.log(params.productId)
+        console.log(params.storeId)
 
 
         if (!userId) {
@@ -126,16 +128,16 @@ export async function DELETE(
                 userId
             }
         })
+        console.log(storeByuserId)
 
         if (!storeByuserId) return new NextResponse("Unauthorized", { status: 403 })
 
-        const store = await prisma.product.deleteMany({
+        const store = await prisma.product.delete({
             where: {
                 id: params.productId
-
             }
         })
-
+        console.log(store)
         return NextResponse.json(store)
     } catch (error) {
         console.log(`[product_delete]`, error)
