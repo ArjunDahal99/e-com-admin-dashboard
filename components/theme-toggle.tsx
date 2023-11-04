@@ -38,4 +38,9 @@ export function ThemeToggle() {
     </DropdownMenu>
   );
 };
+// DATABASE_URL="postgresql://postgres:25dj5eQVB6q0nPCwciOS@containers-us-west-204.railway.app:7361/railway"
+
+//NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME="dzsl2h59g"
+//NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_YnJpZ2h0LWJ1bGwtOTEuY2xlcmsuYWNjb3VudHMuZGV2JA
+//CLERK_SECRET_KEY=sk_test_3F0fvFtoWgXAOFn06DEbpU7U984ru21su0uQ8k5E54
 
