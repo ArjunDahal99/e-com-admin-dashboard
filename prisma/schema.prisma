@@ -86,7 +86,7 @@ model Product {
   images     Image[]
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
-  orderItem  OrderItem[]
+  orderItem  OrderItem[] @relation(onDelete: Cascade)
 }
 
 model Image {
