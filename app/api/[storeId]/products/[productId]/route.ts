@@ -111,40 +111,62 @@ export async function DELETE(
 ) {
     try {
         const { userId } = auth();
-        console.log(params.productId)
-        console.log(params.storeId)
-
+        console.log(params.productId);
+        console.log(params.storeId);
 
         if (!userId) {
-            return new NextResponse("Unauthorized ", { status: 401 })
+            return new NextResponse("Unauthorized", { status: 401 });
         }
 
         if (!params.productId) {
-            return new NextResponse("product Id is required", { status: 400 })
+            return new NextResponse("product Id is required", { status: 400 });
         }
-        const storeByuserId = await prisma.store.findFirst({
+
+        const storeByUserId = await prisma.store.findFirst({
             where: {
                 id: params.storeId,
                 userId
             }
-        })
-        console.log(storeByuserId)
+        });
 
-        if (!storeByuserId) return new NextResponse("Unauthorized", { status: 403 })
 
-        const store = await prisma.product.delete({
+        if (!storeByUserId) {
+            return new NextResponse("Unauthorized", { status: 403 });
+        }
+
+        // Fetch the product to get associated order items
+        const product = await prisma.product.findUnique({
+            where: { id: params.productId },
+            include: {
+                orderItem: true
+            }
+        });
+
+        if (!product) {
+            return new NextResponse("Product not found", { status: 404 });
+        }
+
+        // Delete associated OrderItem records
+        for (const orderItem of product.orderItem) {
+
+            await prisma.orderItem.delete({
+                where: { id: orderItem.id }
+            });
+        }
+
+        // Finally, delete the Product
+        const deletedProduct = await prisma.product.delete({
             where: {
                 id: params.productId
             }
-        })
-        console.log(store)
-        return NextResponse.json(store)
+        });
+
+
+        return NextResponse.json(deletedProduct);
     } catch (error) {
-        console.log(`[product_delete]`, error)
-        return new NextResponse("Internal Error", { status: 500 })
-
+        console.log(`[product_delete]`, error);
+        return new NextResponse("Internal Error", { status: 500 });
     }
-
 }
 
 
